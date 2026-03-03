@@ -1,0 +1,17 @@
+{
+  "name": "claude-pdf-generator",
+  "owner": {
+    "name": "xueyuanhuang"
+  },
+  "plugins": [
+    {
+      "name": "claude-pdf-generator",
+      "source": ".",
+      "description": "Generate beautifully formatted PDF files from natural language descriptions, with full CJK support",
+      "version": "1.0.0",
+      "author": {
+        "name": "xueyuanhuang"
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "claude-pdf-generator",
+  "version": "1.0.0",
+  "description": "Generate beautifully formatted PDF files from natural language descriptions, with full CJK (Chinese, Japanese, Korean) support",
+  "author": {
+    "name": "xueyuanhuang"
+  },
+  "homepage": "https://github.com/xueyuanhuang/claude-pdf-generator",
+  "repository": "https://github.com/xueyuanhuang/claude-pdf-generator",
+  "license": "MIT",
+  "keywords": ["pdf", "markdown", "cjk", "chinese", "document"]
+}
