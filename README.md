@@ -10,63 +10,99 @@ A Claude Code plugin that generates beautifully formatted PDF files from natural
 - Supports tables, code blocks, lists, blockquotes, and more
 - Works in any directory
 
-## Prerequisites
+## How It Works
 
-Install `md-to-pdf` globally:
+This plugin has two parts:
+
+| Component | Role |
+|-----------|------|
+| **Plugin (SKILL.md)** | Instructs Claude how to generate content and convert it to PDF |
+| **md-to-pdf** | The underlying tool that actually renders Markdown into PDF files |
+
+The plugin itself is a set of instructions — the actual PDF rendering is done by `md-to-pdf` (which uses headless Chromium under the hood). Both are required.
+
+## Getting Started
+
+### Step 1: Install the dependency
+
+`md-to-pdf` is the tool that converts Markdown to PDF. Install it globally (one-time setup):
 
 ```bash
 npm i -g md-to-pdf
 ```
 
-## Installation
+> Requires Node.js 14+. On first run, it will download Chromium (~300MB).
 
-### As a Plugin (recommended)
+### Step 2: Install the plugin
 
-```bash
-# Add the marketplace
+Choose one of the following methods:
+
+**Option A: Plugin install (recommended)**
+
+```
 /plugin marketplace add xueyuanhuang/claude-pdf-generator
-
-# Install the plugin
 /plugin install claude-pdf-generator@claude-pdf-generator
 ```
 
-### Manual Installation
-
-Copy the skill file to your Claude Code commands directory:
+**Option B: Manual install**
 
 ```bash
 mkdir -p ~/.claude/commands
-cp skills/pdf/SKILL.md ~/.claude/commands/pdf.md
+curl -o ~/.claude/commands/pdf.md \
+  https://raw.githubusercontent.com/xueyuanhuang/claude-pdf-generator/main/skills/pdf/SKILL.md
 ```
 
-## Usage
+### Step 3: Use it
 
-After installation, use the `/pdf` command in Claude Code:
+In Claude Code, type `/pdf` followed by a description of what you want:
+
+```
+/pdf 帮我写一份 Q1 季度工作总结
+```
 
 ```
 /pdf Write a project status report for Q1 2026
 ```
 
 ```
-/pdf 帮我写一份关于用户增长的数据分析报告
-```
-
-```
 /pdf Create a technical design document for a REST API
 ```
 
-Claude will generate a Markdown file, convert it to a styled PDF, and open it for you.
+```
+/pdf 写一份关于用户增长的数据分析报告，包含表格和图表描述
+```
+
+Claude will automatically:
+1. Generate a well-structured Markdown file
+2. Convert it to a styled PDF (A4, with proper CJK fonts)
+3. Open the PDF for you to preview
+
+Both the `.md` source and `.pdf` output are saved in your current directory.
 
 ## Customization
 
 The plugin automatically creates a global style config at `~/.md-to-pdf.js` on first use. You can edit this file to customize:
 
-- Fonts
-- Colors
-- Margins
-- Line height
-- Table styles
-- Code block styles
+- **Fonts** — default is `PingFang SC` (macOS). Change to `Noto Sans CJK SC` for Linux, or `Microsoft YaHei` for Windows
+- **Colors** — heading colors, text color, link color
+- **Margins** — page margins (default: 25mm top/bottom, 20mm left/right)
+- **Line height** — default is 1.8
+- **Table styles** — borders, header background, padding
+- **Code block styles** — background color, font size
+
+## FAQ
+
+**Q: I get "md-to-pdf: command not found"**
+A: Run `npm i -g md-to-pdf` to install the dependency.
+
+**Q: Chinese characters show as blank or garbled**
+A: Edit `~/.md-to-pdf.js` and change the font-family to a CJK font available on your system:
+- macOS: `PingFang SC`, `Songti SC`, `Hiragino Sans GB`
+- Linux: `Noto Sans CJK SC`
+- Windows: `Microsoft YaHei`, `SimSun`
+
+**Q: Can I change the page size?**
+A: Edit `~/.md-to-pdf.js`, change `format: 'A4'` to `'Letter'`, `'A3'`, etc.
 
 ## License
 
