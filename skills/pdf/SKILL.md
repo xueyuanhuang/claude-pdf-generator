@@ -50,6 +50,10 @@ module.exports = {
     pre code { background: #f8f8f8; padding: 16px; display: block; overflow-x: auto; }
     blockquote { border-left: 4px solid #ccc; color: #666; margin-left: 0; padding-left: 16px; }
     hr { border: none; border-top: 1px solid #eee; margin: 2em 0; }
+    /* 分页控制：标题与紧跟内容不分离，图片/表格/代码块不被截断 */
+    h1, h2, h3, h4, h5, h6 { page-break-after: avoid; break-after: avoid; }
+    img { page-break-inside: avoid; break-inside: avoid; }
+    table, pre, blockquote { page-break-inside: avoid; break-inside: avoid; }
   `,
   body_class: [],
   pdf_options: {
@@ -114,6 +118,8 @@ Use a `<style>` block at the top of the Markdown file, then use the CSS classes 
   justify-content: center;
   align-items: flex-start;
   margin: 16px 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 .screenshots-row .shot {
   text-align: center;
